@@ -1,0 +1,7 @@
+if [ -z "$1" ]
+then
+        echo "Please supply stage IP"
+else
+        echo "logging into : " $1
+        sshpass -p "$STAGE_LDAP_PASSWORD" ssh -o "StrictHostKeyChecking no" $1
+fi

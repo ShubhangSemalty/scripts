@@ -1,0 +1,20 @@
+#!/usr/bin/expect -f
+
+#Usage prod <host>
+
+set timeout 30
+
+set prodpass "$env(PROD_LDAP_PASSWORD)"
+set jump "$env(JUMP_HOST)"
+
+spawn ssh $jump
+expect "password: "
+send "$prodpass\r"
+
+expect "$ " {send "ssh [lindex $argv 0]\r"}
+expect "yes/no" {
+send "yes\r"
+expect "*?assword" { send "$prodpass\r" }
+}
+
+interact
